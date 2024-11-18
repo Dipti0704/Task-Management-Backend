@@ -3,22 +3,17 @@
 ## Overview 
 This project is a Task Management API built with Node.js, Express, and MongoDB. It allows users to register, login, and manage tasks with various statuses and priorities.
 
-### Working
-https://drive.google.com/file/d/1Yv68lHGlOS5XT_ABXE-Gnw6dHXxI6GBG/view?usp=sharing
-
 ## Tech Stack
 - **Node.js**: JavaScript runtime
 - **Express**: Web framework for Node.js
 - **MongoDB**: NoSQL database
 - **Mongoose**: MongoDB object modeling tool
-- **bcrypt**: Library to hash passwords
 - **jsonwebtoken**: Library to work with JSON Web Tokens (JWT)
 - **dotenv**: Module to load environment variables
 - **cors**: Middleware to enable CORS
 
 ## Highlights
 - User authentication with JWT
-- Password hashing with bcrypt
 - CRUD operations for tasks
 - Error handling for various HTTP status codes
 - Middleware for token authentication
@@ -27,7 +22,7 @@ https://drive.google.com/file/d/1Yv68lHGlOS5XT_ABXE-Gnw6dHXxI6GBG/view?usp=shari
 
 1. **Clone the repository**
     ```bash
-    git clone https://github.com/Deepakchowdavarapu/TaskManager-Backend.git
+    git clone https://github.com/Dipti0704/Task-Management-Backend.git
     cd taskmanager-backend
     ```
 
@@ -82,7 +77,6 @@ https://drive.google.com/file/d/1Yv68lHGlOS5XT_ABXE-Gnw6dHXxI6GBG/view?usp=shari
     - `200 OK`: Login successful, returns JWT token
     - `400 Bad Request`: Missing or invalid fields
     - `401 Unauthorized`: No user exists with given email
-    - `409 Conflict`: Incorrect password
     - `500 Internal Server Error`: Server issues
 
 ### Tasks
@@ -104,7 +98,6 @@ https://drive.google.com/file/d/1Yv68lHGlOS5XT_ABXE-Gnw6dHXxI6GBG/view?usp=shari
 - **Responses**:
     - `201 Created`: Task created successfully
     - `400 Bad Request`: Missing or invalid fields
-    - `401 Unauthorized`: Unauthorized access
     - `500 Internal Server Error`: Server issues
 
 #### Get All Tasks
@@ -113,7 +106,6 @@ https://drive.google.com/file/d/1Yv68lHGlOS5XT_ABXE-Gnw6dHXxI6GBG/view?usp=shari
 - **Headers**: `Authorization: Bearer <token>`
 - **Responses**:
     - `200 OK`: Returns list of tasks
-    - `401 Unauthorized`: Unauthorized access
     - `500 Internal Server Error`: Server issues
 
 #### Get Task by ID
@@ -122,7 +114,6 @@ https://drive.google.com/file/d/1Yv68lHGlOS5XT_ABXE-Gnw6dHXxI6GBG/view?usp=shari
 - **Headers**: `Authorization: Bearer <token>`
 - **Responses**:
     - `200 OK`: Returns the task
-    - `401 Unauthorized`: Unauthorized access
     - `404 Not Found`: Task not found
     - `500 Internal Server Error`: Server issues
 
@@ -143,7 +134,6 @@ https://drive.google.com/file/d/1Yv68lHGlOS5XT_ABXE-Gnw6dHXxI6GBG/view?usp=shari
 - **Responses**:
     - `200 OK`: Task updated successfully
     - `400 Bad Request`: Missing or invalid fields
-    - `401 Unauthorized`: Unauthorized access
     - `404 Not Found`: Task not found
     - `500 Internal Server Error`: Server issues
 
@@ -157,22 +147,6 @@ https://drive.google.com/file/d/1Yv68lHGlOS5XT_ABXE-Gnw6dHXxI6GBG/view?usp=shari
     - `404 Not Found`: Task not found
     - `500 Internal Server Error`: Server issues
 
-#### Set Task Reminder
-- **URL**: `/tasks/:id/reminder`
-- **Method**: `POST`
-- **Headers**: `Authorization: Bearer <token>`
-- **Body**:
-    ```json
-    {
-      "reminderDate": "2023-12-30T10:00:00Z"
-    }
-    ```
-- **Responses**:
-    - `200 OK`: Reminder set successfully
-    - `400 Bad Request`: Missing reminder date
-    - `401 Unauthorized`: Unauthorized access
-    - `404 Not Found`: Task not found
-    - `500 Internal Server Error`: Server issues
 
 ### Users
 
@@ -187,10 +161,3 @@ https://drive.google.com/file/d/1Yv68lHGlOS5XT_ABXE-Gnw6dHXxI6GBG/view?usp=shari
   
 ## Enhancements
 - **Sorting** : Enhanced task retrieval with sorting (by due date).
-- **Task reminders** :  Added an endpoint to set email reminders for tasks.
-
-
-### Future Enhancements
-  - **Pagination** : Pagination of the retrieved data
-  - **Testing** : Run Automated Tests with Jest/Mocha
-  - **RBAC** : Admin level accessfor admin and users

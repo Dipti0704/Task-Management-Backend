@@ -32,7 +32,7 @@ const authenticateToken = async (req, res, next) => {
     try {
         const verified = jwt.verify(token, process.env.JWT_SECRET);
         
-        // Verify user exists
+        
         const user = await User.findById(verified.id);
         if (!user) {
             return res.status(401).json({ error: 'Invalid token. User not found.' });
@@ -50,7 +50,7 @@ app.post('/auth/register', async (req, res) => {
     try {
         const { name, email, password } = req.body;
 
-        // Validate input
+      
         if (!name || !email || !password) {
             return res.status(400).json({ message: 'Please provide name, email, and password' });
         }
@@ -70,7 +70,6 @@ app.post('/auth/register', async (req, res) => {
 
         await newUser.save();
 
-        // Generate token
         const token = jwt.sign(
             { id: newUser._id }, 
             process.env.JWT_SECRET, 
@@ -97,12 +96,10 @@ app.post('/auth/login', async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Validate input
         if (!email || !password) {
             return res.status(400).json({ message: 'Please provide email and password' });
         }
 
-        // Find user
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(401).json({ error: 'Invalid credentials' });
@@ -252,37 +249,6 @@ app.delete('/tasks/:id', authenticateToken, async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error deleting task' });
-    }
-});
-
-// Reminder Route (Optional)
-app.post('/tasks/:id/reminder', authenticateToken, async (req, res) => {
-    try {
-        const { reminderDate } = req.body;
-
-        if (!reminderDate) {
-            return res.status(400).json({ error: 'Missing reminder date' });
-        }
-
-        const task = await Task.findOne({ 
-            _id: req.params.id, 
-            userId: req.user.id 
-        });
-
-        if (!task) {
-            return res.status(404).json({ error: 'Task not found' });
-        }
-
-        task.reminderDate = new Date(reminderDate);
-        await task.save();
-
-        res.status(200).json({ 
-            message: 'Reminder set successfully',
-            task 
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Error setting reminder' });
     }
 });
 
